@@ -88,6 +88,7 @@ class DiscourseClient(object):
 
         """
         r = self._get('/users/hp.json')
+        r = r.payload
         challenge = r['challenge'][::-1]  # reverse challenge, discourse security check
         confirmations = r['value']
         return self._post('/users', name=name, username=username, email=email,
@@ -581,7 +582,7 @@ class DiscourseClient(object):
 
         """
         kwargs['term'] = term
-        return self._get('/search.json', **kwargs)
+        return self._get('/search/query', **kwargs)
 
     def badges(self, **kwargs):
         """
